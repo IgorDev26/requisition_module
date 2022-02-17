@@ -1,0 +1,62 @@
+<odoo>
+    <report 
+        id="requisition_report"
+        string="Reporte De Requisición"
+        model="purchase.requisitions"
+        report_type="qweb-pdf"
+        name="purchase_requisitions_request.requisition_report_template"
+    />
+
+    <template id="requisition_report_template">
+        <t t-call="web.html_container">
+            <t t-call="purchase_requisitions_request.report_header_footer">
+                <center>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ref</th>
+                                <th>Empleado</th>
+                                <th>Departamento</th>
+                                <th>Aprobación</th>
+                                <th>Estado</th>
+                                <th>Fecha de requisición</th>
+                                <th>Fecha de vencimiento</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="d">
+                                <tr style="border-bottom:solid 1px #E3E3E3">
+                                    <td t-esc="d.name"></td>
+                                    <td t-esc="d.employee_id['name']"></td>
+                                    <td t-esc="d.department_id['name']"></td>
+                                    <td t-esc="d.approver_ids['name']"></td>
+                                    <td t-esc="d.state"></td>
+                                    <td t-esc="d.request_date"></td>
+                                    <td t-esc="d.date_end"></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <style>
+                        table{
+                            border-collapse:collapse;
+                        }
+
+                        th{
+                            background-color:#E3E3E3;
+                        }
+
+                        th, td{
+                            width:200px;
+                            text-align:center;
+                            border-left:solid 2px white;
+                            border-right:solid 2px white;
+                            font-size:small;
+                            font-weight:lighter;
+                        }
+                    </style>
+                </center>
+            </t>
+        </t>
+    </template>
+</odoo>
